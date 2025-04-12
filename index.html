@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coral Nursery Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <img
+        src="Fuzzy Logic Logo Transparent.png"
+        alt="Heliopolis Logo"
+        class="logo"
+      />
+      <h1>Heliopolis Fuzzy Logic</h1>
+    </nav>
+
+    <main class="dashboard">
+      <h2>Coral Nursery Structures</h2>
+      <div class="structure-grid">
+        <div class="structure-card" onclick="openStructure(1)">
+          <h3>Structure 1</h3>
+          <p>Location: Reef Zone A</p>
+        </div>
+        <div class="structure-card" onclick="openStructure(2)">
+          <h3>Structure 2</h3>
+          <p>Location: Reef Zone B</p>
+        </div>
+        <div class="structure-card" onclick="openStructure(3)">
+          <h3>Structure 3</h3>
+          <p>Location: Reef Zone C</p>
+        </div>
+        <!-- Add more structures as needed -->
+      </div>
+
+      <section class="structure-info" id="structure-info">
+        <h2>Structure Details</h2>
+        <div class="info">
+          <img src="live-footage-placeholder.jpg" alt="Live Feed" />
+          <div class="sensor-data">
+            <h3>Sensor Readings:</h3>
+            <ul></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const structures = {
+        1: {
+          location: "Reef Zone A",
+          image: "images/image1.jpg",
+          sensors: {
+            Temperature: () => (25 + Math.random() * 2).toFixed(1) + "°C",
+            pH: () => (7.9 + Math.random() * 0.3).toFixed(2),
+            Salinity: () => (34 + Math.random() * 2).toFixed(1) + " ppt",
+            "Dissolved Oxygen": () =>
+              (6 + Math.random() * 1).toFixed(2) + " mg/L",
+          },
+        },
+        2: {
+          location: "Reef Zone B",
+          image: "images/image2.jpg",
+          sensors: {
+            Temperature: () => (26 + Math.random()).toFixed(1) + "°C",
+            pH: () => (8 + Math.random() * 0.2).toFixed(2),
+            Salinity: () => (35 + Math.random()).toFixed(1) + " ppt",
+            "Dissolved Oxygen": () =>
+              (5.5 + Math.random() * 0.5).toFixed(2) + " mg/L",
+          },
+        },
+        3: {
+          location: "Reef Zone C",
+          image: "images/image3.jpg",
+          sensors: {
+            Temperature: () => (24 + Math.random() * 2).toFixed(1) + "°C",
+            pH: () => (7.8 + Math.random() * 0.4).toFixed(2),
+            Salinity: () => (36 + Math.random()).toFixed(1) + " ppt",
+            "Dissolved Oxygen": () =>
+              (6.2 + Math.random() * 0.8).toFixed(2) + " mg/L",
+          },
+        },
+      };
+
+      let currentStructureId = null;
+      let updateInterval = null;
+
+      function openStructure(id) {
+        const infoSection = document.getElementById("structure-info");
+        const dataList = document.querySelector(".sensor-data ul");
+        const image = document.querySelector(".info img");
+        const title = document.querySelector("#structure-info h2");
+
+        const structure = structures[id];
+        currentStructureId = id;
+
+        image.src = structure.image;
+        title.textContent = `Structure ${id} - ${structure.location}`;
+
+        function updateData() {
+          dataList.innerHTML = "";
+          for (let [key, gen] of Object.entries(structure.sensors)) {
+            const li = document.createElement("li");
+            li.textContent = `${key}: ${gen()}`;
+            dataList.appendChild(li);
+          }
+        }
+
+        clearInterval(updateInterval);
+        updateData(); // Initial
+        updateInterval = setInterval(updateData, 3000); // Simulate update every 3 seconds
+
+        infoSection.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
