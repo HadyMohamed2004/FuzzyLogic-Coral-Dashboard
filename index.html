@@ -8,12 +8,11 @@
   </head>
   <body>
     <nav class="navbar">
-      <img
-        src="Fuzzy Logic Logo Transparent.png"
-        alt="Heliopolis Logo"
-        class="logo"
-      />
+      <img src="logo.png" alt="Heliopolis Logo" class="logo" />
       <h1>Heliopolis Fuzzy Logic</h1>
+      <div style="margin-left: auto">
+        <a href="about.html" class="nav-link">About</a>
+      </div>
     </nav>
 
     <main class="dashboard">
@@ -31,13 +30,12 @@
           <h3>Structure 3</h3>
           <p>Location: Reef Zone C</p>
         </div>
-        <!-- Add more structures as needed -->
       </div>
 
       <section class="structure-info" id="structure-info">
         <h2>Structure Details</h2>
         <div class="info">
-          <img src="live-footage-placeholder.jpg" alt="Live Feed" />
+          <img src="" alt="Live Feed" />
           <div class="sensor-data">
             <h3>Sensor Readings:</h3>
             <ul></ul>
@@ -45,6 +43,7 @@
         </div>
       </section>
     </main>
+
     <script>
       const structures = {
         1: {
@@ -107,8 +106,8 @@
         }
 
         clearInterval(updateInterval);
-        updateData(); // Initial
-        updateInterval = setInterval(updateData, 3000); // Simulate update every 3 seconds
+        updateData(); // Initial call
+        updateInterval = setInterval(updateData, 3000); // Update every 3 seconds
 
         infoSection.style.display = "block";
       }
